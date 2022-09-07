@@ -1,3 +1,4 @@
+import 'package:ecomm_food_app/widgets/big_text.dart';
 import 'package:flutter/material.dart';
 import 'package:ecomm_food_app/utils/colors.dart';
 
@@ -21,7 +22,9 @@ class _MainFoodPageState extends State<MainFoodPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
-                    children: [Text('country'), Text('city')],
+                    children: [
+                      BigText(text: "Lebanon",color: AppColors.mainColor),
+                      Text('city')],
                   ),
                   Center(
                     child: Container(
