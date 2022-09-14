@@ -1,3 +1,4 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:ecomm_food_app/home/icon_and_text_widget.dart';
 import 'package:ecomm_food_app/utils/colors.dart';
 import 'package:ecomm_food_app/widgets/small_text.dart';
@@ -39,14 +40,29 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 320,
-      child: PageView.builder(
-          controller: pageController,
-          itemCount: 5,
-          itemBuilder: (context, position) {
-            return _builPageItem(position);
-          }),
+    return Column(
+        children: [
+          Container(
+            height: 320,
+            child: PageView.builder(
+                controller: pageController,
+                itemCount: 5,
+                itemBuilder: (context, position) {
+                  return _builPageItem(position);
+                }),
+          ),
+          new DotsIndicator(
+              dotsCount:5,
+              position: _currPageValue,
+              decorator: DotsDecorator(
+                size: const Size.square(9.0),
+                activeSize: const Size(18.0, 9.0),
+                activeColor: AppColors.mainColor,
+                activeShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
+              )
+          )
+        ]
     );
   }
 
@@ -104,23 +120,24 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               height: 130,
               margin: EdgeInsets.only(left: 30, right: 30, bottom: 30),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0xFFe8e8e8),
-                    blurRadius: 2.0,
-                    offset: Offset(0,5)// no x-axis shadow, 5px for the y-axis
-                  ),
-                  BoxShadow(
-                      color: Colors.white,
-                      offset: Offset(-5,0)
-                  ),
-                  BoxShadow(
-                      color: Colors.white,
-                      offset: Offset(5,0)
-                  )
-                ]
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color(0xFFe8e8e8),
+                        blurRadius: 2.0,
+                        offset: Offset(
+                            0, 5) // no x-axis shadow, 5px for the y-axis
+                    ),
+                    BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(-5, 0)
+                    ),
+                    BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(5, 0)
+                    )
+                  ]
               ),
               child: Container(
                 padding: EdgeInsets.only(top: 15, left: 15, right: 15),
@@ -134,7 +151,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                         Wrap(
                           children: List.generate(
                               5,
-                              (index) => Icon(
+                                  (index) =>
+                                  Icon(
                                     Icons.star,
                                     color: AppColors.mainColor,
                                   )),
@@ -149,21 +167,16 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     ),
                     SizedBox(height: 20),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconAndTextWidget(
                             icon: Icons.circle,
                             text: 'Normal',
                             iconColor: AppColors.iconColor1),
-                        SizedBox(
-                          width: 20,
-                        ),
                         IconAndTextWidget(
                             icon: Icons.location_on_outlined,
                             text: '1.7km',
                             iconColor: AppColors.mainColor),
-                        SizedBox(
-                          width: 20,
-                        ),
                         IconAndTextWidget(
                             icon: Icons.access_time,
                             text: '32min',
