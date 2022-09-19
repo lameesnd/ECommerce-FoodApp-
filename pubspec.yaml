@@ -31,6 +31,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  get: ^4.6.5
   dots_indicator: ^2.1.0
 
 
