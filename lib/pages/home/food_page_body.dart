@@ -1,5 +1,5 @@
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:ecomm_food_app/home/icon_and_text_widget.dart';
+import 'package:ecomm_food_app/widgets/icon_and_text_widget.dart';
 import 'package:ecomm_food_app/utils/colors.dart';
 import 'package:ecomm_food_app/utils/dimensions.dart';
 import 'package:ecomm_food_app/widgets/small_text.dart';

@@ -1,7 +1,7 @@
 import 'package:ecomm_food_app/utils/dimensions.dart';
 import 'package:ecomm_food_app/widgets/big_text.dart';
 import 'package:ecomm_food_app/widgets/small_text.dart';
-import 'package:ecomm_food_app/home/food_page_body.dart';
+import 'package:ecomm_food_app/pages/home/food_page_body.dart';
 import 'package:flutter/material.dart';
 import 'package:ecomm_food_app/utils/colors.dart';
 
