@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../utils/colors.dart';
 import '../../widgets/app_column.dart';
 import '../../widgets/big_text.dart';
+import '../../widgets/expandable_text_widget.dart';
 import '../../widgets/icon_and_text_widget.dart';
 import '../../widgets/small_text.dart';
 
@@ -75,7 +76,16 @@ class PopularFoodDetail extends StatelessWidget {
                       SizedBox(
                         height: Dimensions.height20,
                       ),
-                      BigText(text: "Introduce")
+                      BigText(text: "Introduce"),
+                      //expandable text widget
+                      const Expanded(
+                        child: SingleChildScrollView(
+                          child: ExpandableTextWidget(
+                            text:
+                                "Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),

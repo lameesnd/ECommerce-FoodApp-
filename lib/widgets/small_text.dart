@@ -19,9 +19,12 @@ class SmallText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      maxLines: 1,
+      // maxLines: 1,
       style: TextStyle(
-          color: color, fontSize: size==0?Dimensions.font12:size, fontFamily: 'Roboto', height: height),
+          color: color,
+          fontSize: size == 0 ? Dimensions.font12 : size,
+          fontFamily: 'Roboto',
+          height: height,),
     );
   }
 }
