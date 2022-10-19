@@ -108,10 +108,10 @@ class RecommendedFoodDetail extends StatelessWidget {
             padding: EdgeInsets.only(
                 top: Dimensions.height30,
                 bottom: Dimensions.height30,
-                left: Dimensions.width20,
-                right: Dimensions.width20),
+                left: Dimensions.width30,
+                right: Dimensions.width30),
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.buttonBackgroundColor,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(Dimensions.radius20 * 2),
                     topRight: Radius.circular(Dimensions.radius20 * 2))),
@@ -123,16 +123,14 @@ class RecommendedFoodDetail extends StatelessWidget {
                   padding: EdgeInsets.only(
                       top: Dimensions.height20,
                       bottom: Dimensions.height20,
-                      left: Dimensions.width20,
-                      right: Dimensions.width20),
+                      left: Dimensions.width30,
+                      right: Dimensions.width30),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Dimensions.radius20),
+                      borderRadius: BorderRadius.circular(Dimensions.radius15),
                       color: Colors.white),
-                  child: AppIcon(
-                    icon: Icons.favorite,
-                    iconColor: AppColors.mainColor,
-                    backgroundColor: Colors.white,
-                    iconSize: Dimensions.iconSize24,
+                  child: Icon(
+                    Icons.favorite,
+                    color: AppColors.mainColor,
                   ),
                 ),
                 //add to cart
