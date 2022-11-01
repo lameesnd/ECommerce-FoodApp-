@@ -1,5 +1,6 @@
 import 'package:ecomm_food_app/data/repository/popular_product_repo.dart';
 import 'package:get/get.dart';
+import 'package:ecomm_food_app/models/products_model.dart';
 
 class PopularProductController extends GetxController {
   final PopularProductRepo popularProductRepo;
@@ -13,8 +14,10 @@ class PopularProductController extends GetxController {
   Future<void> getPopularProductList() async {
     Response response = await popularProductRepo.getPopularProductList();
     if (response.statusCode == 200) {
+      print("get popular");
       _popularProductList = []; //re-initialize not to have repeated data
-      // _popularProductList.addAll(); // we should create a model before
+      _popularProductList.addAll(ProductModel.fromJson(response.body).products); // we should create a model before
+      print(_popularProductList);
       update(); //like setState to update the ui
     } else {}
   }
