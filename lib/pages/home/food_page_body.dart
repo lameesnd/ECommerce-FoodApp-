@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:ecomm_food_app/widgets/big_text.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/recommended_product_controller.dart';
 import '../../utils/app_constants.dart';
 import '../../widgets/app_column.dart';
 
@@ -106,80 +107,94 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         ),
       ),
       // List of food and images
-      ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          //to allow the scroll to be part of the page not in the container only
-          shrinkWrap: true,
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return Container(
-              margin: EdgeInsets.only(
-                  left: Dimensions.width20,
-                  right: Dimensions.width20,
-                  bottom: Dimensions.height10),
-              child: Row(
-                children: [
-                  //image section
-                  Container(
-                    width: Dimensions.listViewImgSize,
-                    height: Dimensions.listViewImgSize,
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radius20),
-                        color: Colors.white38,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage('assets/images/burger1.jpg'))),
-                  ),
-                  //text container
-                  Expanded(
-                    //to force the container to take all the available space
-                    child: Container(
-                      height: Dimensions.listViewTextContSize,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(Dimensions.radius20),
-                              bottomRight:
-                                  Radius.circular(Dimensions.radius20)),
-                          color: Colors.white),
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            left: Dimensions.width10,
-                            right: Dimensions.width10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            BigText(text: 'Nutritious fruit meal in China'),
-                            SizedBox(height: Dimensions.height10),
-                            SmallText(text: 'With chinese characteristics'),
-                            SizedBox(height: Dimensions.height10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconAndTextWidget(
-                                    icon: Icons.circle,
-                                    text: 'Normal',
-                                    iconColor: AppColors.iconColor1),
-                                IconAndTextWidget(
-                                    icon: Icons.location_on_outlined,
-                                    text: '1.7km',
-                                    iconColor: AppColors.mainColor),
-                                IconAndTextWidget(
-                                    icon: Icons.access_time,
-                                    text: '32min',
-                                    iconColor: AppColors.iconColor2),
-                              ],
-                            )
-                          ],
+      GetBuilder<RecommendedProductController>(builder: (recommendedProduct) {
+        return recommendedProduct.isLoaded
+            ? ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                //to allow the scroll to be part of the page not in the container only
+                shrinkWrap: true,
+                itemCount: recommendedProduct.recommendedProductList.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.only(
+                        left: Dimensions.width20,
+                        right: Dimensions.width20,
+                        bottom: Dimensions.height10),
+                    child: Row(
+                      children: [
+                        //image section
+                        Container(
+                          width: Dimensions.listViewImgSize,
+                          height: Dimensions.listViewImgSize,
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.radius20),
+                              color: Colors.white38,
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(AppConstants.BASE_URL +
+                                      AppConstants.UPLOADS_URI +
+                                      recommendedProduct
+                                          .recommendedProductList[index]
+                                          .img!))),
                         ),
-                      ),
+                        //text container
+                        Expanded(
+                          //to force the container to take all the available space
+                          child: Container(
+                            height: Dimensions.listViewTextContSize,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topRight:
+                                        Radius.circular(Dimensions.radius20),
+                                    bottomRight:
+                                        Radius.circular(Dimensions.radius20)),
+                                color: Colors.white),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: Dimensions.width10,
+                                  right: Dimensions.width10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  BigText(
+                                      text: recommendedProduct
+                                          .recommendedProductList[index].name!),
+                                  SizedBox(height: Dimensions.height10),
+                                  SmallText(
+                                      text: recommendedProduct
+                                          .recommendedProductList[index].description!),
+                                  SizedBox(height: Dimensions.height10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      IconAndTextWidget(
+                                          icon: Icons.circle,
+                                          text: 'Normal',
+                                          iconColor: AppColors.iconColor1),
+                                      IconAndTextWidget(
+                                          icon: Icons.location_on_outlined,
+                                          text: '1.7km',
+                                          iconColor: AppColors.mainColor),
+                                      IconAndTextWidget(
+                                          icon: Icons.access_time,
+                                          text: '32min',
+                                          iconColor: AppColors.iconColor2),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                  )
-                ],
-              ),
-            );
-          }),
+                  );
+                })
+            : CircularProgressIndicator(color: AppColors.mainColor);
+      })
     ]);
   }
 
@@ -229,7 +244,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 image: DecorationImage(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                      AppConstants.BASE_URL + "/uploads/" + popularProduct.img!,
+                      AppConstants.BASE_URL +
+                          AppConstants.UPLOADS_URI +
+                          popularProduct.img!,
                     ))),
           ),
           Align(
