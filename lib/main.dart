@@ -1,5 +1,6 @@
 import 'package:ecomm_food_app/controllers/popular_product_controller.dart';
 import 'package:ecomm_food_app/pages/food/popular_food_detail.dart';
+import 'package:ecomm_food_app/routes/route_helper.dart';
 import 'package:ecomm_food_app/widgets/recommended_food_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:ecomm_food_app/pages/home/main_food_page.dart';
@@ -26,10 +27,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: const MainFoodPage(),
+      initialRoute: RouteHelper.getInitial(),
+      getPages: RouteHelper.routes,
     );
   }
 }
