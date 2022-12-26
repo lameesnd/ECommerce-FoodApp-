@@ -66,9 +66,4 @@ class Products {
     updatedAt = json['updated_at'];
     typeId = json['type_id'];
   }
-
-  @override
-  String toString() {
-    return '{name: ${name}, stars: ${stars},description: ${description}}';
-  }
 }
