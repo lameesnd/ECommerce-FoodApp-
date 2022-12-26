@@ -1,22 +1,28 @@
+import 'dart:convert';
+
 import 'package:ecomm_food_app/pages/home/main_food_page.dart';
+import 'package:ecomm_food_app/utils/app_constants.dart';
 import 'package:ecomm_food_app/utils/dimensions.dart';
 import 'package:ecomm_food_app/widgets/app_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/popular_product_controller.dart';
 import '../../utils/colors.dart';
 import '../../widgets/app_column.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/expandable_text_widget.dart';
-import '../../widgets/icon_and_text_widget.dart';
-import '../../widgets/small_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({Key? key}) : super(key: key);
+  int pageId;
+
+  PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<PopularProductController>().popularProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -31,7 +37,9 @@ class PopularFoodDetail extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage('assets/images/salad1.jpg'))),
+                        image: NetworkImage(AppConstants.BASE_URL +
+                            AppConstants.UPLOADS_URI +
+                            product.img!))),
               )),
           //icons
           Positioned(
@@ -42,7 +50,7 @@ class PopularFoodDetail extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: (()=>Get.to(MainFoodPage())),
+                    onTap: (() => Get.to(MainFoodPage())),
                     child: AppIcon(
                       icon: Icons.arrow_back_ios,
                     ),
@@ -76,19 +84,17 @@ class PopularFoodDetail extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppColumn(
-                        text: 'Saladati',
+                        text: product.name!,
                       ),
                       SizedBox(
                         height: Dimensions.height20,
                       ),
                       BigText(text: "Introduce"),
                       //expandable text widget
-                      const Expanded(
+                      Expanded(
                         child: SingleChildScrollView(
-                          child: ExpandableTextWidget(
-                            text:
-                                "Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                          ),
+                          child:
+                              ExpandableTextWidget(text: product.description!),
                         ),
                       )
                     ],
@@ -153,7 +159,7 @@ class PopularFoodDetail extends StatelessWidget {
                   borderRadius: BorderRadius.circular(Dimensions.radius20),
                   color: AppColors.mainColor),
               child: BigText(
-                text: "\$10 | Add to cart",
+                text: "\$ ${product.price!} | Add to cart",
                 color: Colors.white,
               ),
             ),
