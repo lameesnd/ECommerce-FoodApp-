@@ -3,7 +3,6 @@ import 'package:ecomm_food_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ecomm_food_app/models/products_model.dart';
-import 'dart:convert';
 
 import 'cart_controller.dart';
 
@@ -51,25 +50,40 @@ class PopularProductController extends GetxController {
   }
 
   int checkQuantity(int quantity) {
-    if (quantity < 0) {
+    if ((inCartItems + quantity) < 0) {
       Get.snackbar('item count', "You reached the minimum amount",
           backgroundColor: AppColors.mainColor, colorText: Colors.white);
       return 0;
-    } else if (quantity > 20) {
+    } else if ((inCartItems + quantity) > 20) {
       Get.snackbar('item count', "You reached the maximum amount");
       return 20;
-    } else
+    } else {
       return quantity;
+    }
   }
 
-  void initProduct(CartController cart) {
+  void initProduct(Products product, CartController cart) {
     _quantity = 0;
     _inCartItems = 0;
     _cart = cart;
+    var exists = false;
+    exists = cart.existInCart(product);
     //check if exists items then add to global storage counter
+    if (exists) {
+      _inCartItems = _cart.getQuantity(product);
+    }
+    print('quantity in the cart is: ' + _inCartItems.toString());
   }
 
   void addItem(Products product) {
     _cart.addItem(product, _quantity);
+    _quantity = 0;
+    _inCartItems = _cart.getQuantity(product);
+    _cart.items.forEach((key, value) {
+      print('key: ' +
+          value.id.toString() +
+          ' quantity' +
+          value.quantity.toString());
+    });
   }
 }
