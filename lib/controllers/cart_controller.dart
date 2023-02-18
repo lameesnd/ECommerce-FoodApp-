@@ -14,6 +14,7 @@ class CartController extends GetxController {
   Map<int, CartModel> get items => _items;
 
   void addItem(Products product, int quantity) {
+    print(quantity);
     if (_items.containsKey(product.id!)) {
       var totalQuantity = 0;
       _items.update(product.id!, (value) {
@@ -67,5 +68,13 @@ class CartController extends GetxController {
       });
     }
     return quantity;
+  }
+
+  int get totalItems{
+    var totalQuantity=0;
+    _items.forEach((key, value) {
+      totalQuantity += value.quantity!;
+    });
+    return totalQuantity;
   }
 }

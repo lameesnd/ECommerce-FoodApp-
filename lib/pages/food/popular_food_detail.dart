@@ -4,6 +4,7 @@ import 'package:ecomm_food_app/pages/home/main_food_page.dart';
 import 'package:ecomm_food_app/utils/app_constants.dart';
 import 'package:ecomm_food_app/utils/dimensions.dart';
 import 'package:ecomm_food_app/widgets/app_icon.dart';
+import 'package:ecomm_food_app/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,8 +26,8 @@ class PopularFoodDetail extends StatelessWidget {
     var product =
         Get.find<PopularProductController>().popularProductList[pageId];
 
-    Get.find<PopularProductController>()
-        .initProduct(product,Get.find<CartController>()); // to re-initialize the states
+    Get.find<PopularProductController>().initProduct(
+        product, Get.find<CartController>()); // to re-initialize the states
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -59,9 +60,40 @@ class PopularFoodDetail extends StatelessWidget {
                       icon: Icons.arrow_back_ios,
                     ),
                   ),
-                  AppIcon(
-                    icon: Icons.shopping_cart_outlined,
-                  )
+                  GetBuilder<PopularProductController>(builder: (controller) {
+                    return Stack(
+                      children: [
+                        AppIcon(
+                          icon: Icons.shopping_cart_outlined,
+                        ),
+                        Get.find<PopularProductController>().totalItems >= 1
+                            ? Positioned(
+                                right: 0,
+                                top: 0,
+                                child: AppIcon(
+                                  icon: Icons.circle,
+                                  size: 20,
+                                  iconColor: Colors.transparent,
+                                  backgroundColor: AppColors.mainColor,
+                                ),
+                              )
+                            : Container(),
+                        Get.find<PopularProductController>().totalItems >= 1
+                            ? Positioned(
+                                right: 5,
+                                top: 3,
+                                child: SmallText(
+                                  text: Get.find<PopularProductController>()
+                                      .totalItems
+                                      .toString(),
+                                  size: 12,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Container()
+                      ],
+                    );
+                  })
                 ],
               )),
           //body details

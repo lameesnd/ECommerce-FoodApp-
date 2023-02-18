@@ -50,11 +50,11 @@ class PopularProductController extends GetxController {
   }
 
   int checkQuantity(int quantity) {
-    if ((inCartItems + quantity) < 0) {
+    if ((_inCartItems + quantity) < 0) {
       Get.snackbar('item count', "You reached the minimum amount",
           backgroundColor: AppColors.mainColor, colorText: Colors.white);
       return 0;
-    } else if ((inCartItems + quantity) > 20) {
+    } else if ((_inCartItems + quantity) > 20) {
       Get.snackbar('item count', "You reached the maximum amount");
       return 20;
     } else {
@@ -85,5 +85,10 @@ class PopularProductController extends GetxController {
           ' quantity' +
           value.quantity.toString());
     });
+    update();
+  }
+
+  int get totalItems{
+    return _cart.totalItems;
   }
 }
