@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ecomm_food_app/pages/cart/cart_page.dart';
 import 'package:ecomm_food_app/pages/home/main_food_page.dart';
 import 'package:ecomm_food_app/utils/app_constants.dart';
 import 'package:ecomm_food_app/utils/dimensions.dart';
@@ -63,8 +64,13 @@ class PopularFoodDetail extends StatelessWidget {
                   GetBuilder<PopularProductController>(builder: (controller) {
                     return Stack(
                       children: [
-                        AppIcon(
-                          icon: Icons.shopping_cart_outlined,
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => CartPage());
+                          },
+                          child: AppIcon(
+                            icon: Icons.shopping_cart_outlined,
+                          ),
                         ),
                         Get.find<PopularProductController>().totalItems >= 1
                             ? Positioned(
